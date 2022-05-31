@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/labelLayout_labelHorizontalSpace"
+    android:layout_marginVertical="@dimen/labelLayout_labelVerticalSpace"
+    android:background="@drawable/label_view_shape_normal"
+    android:gravity="center"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="5dp"
+    android:textColor="@color/labelLayout_textColorNormal"
+    android:textSize="12sp"
+    tools:text="标签" />

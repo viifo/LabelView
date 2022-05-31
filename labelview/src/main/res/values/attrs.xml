@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LabelLayout">
+        <!-- 流式布局时 item 是否填充行剩余空间 -->
+        <attr name="flexGrow" format="boolean"/>
+        <!-- item 的对齐方式 -->
+        <attr name="justifyContent"/>
+        <!-- item 使用的布局 -->
+        <attr name="labelItem" format="reference"/>
+        <!-- 每行显示的 item 个数, 0 为自适应 -->
+        <attr name="spanCount" format="integer"/>
+        <!-- 是否支持多选，默认 false -->
+        <attr name="multiChoice" format="boolean"/>
+        <!-- 最大可选数量(开启多选有效) -->
+        <attr name="maxSelected" format="integer"/>
+        <!-- 最小可选数量(开启多选有效) -->
+        <attr name="minSelected" format="integer"/>
+    </declare-styleable>
+</resources>

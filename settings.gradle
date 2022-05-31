@@ -1,0 +1,4 @@
+rootProject.name = "LabelView"
+include ':demo'
+include ':labelview'
+

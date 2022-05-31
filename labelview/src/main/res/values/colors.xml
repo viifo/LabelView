@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="labelLayout_backgroundLabelNormal">#FFF7F7F7</color>
+    <color name="labelLayout_backgroundLabelHover">#FFBB86FC</color>
+    <color name="labelLayout_textColorNormal">#FF999999</color>
+    <color name="labelLayout_textColorHover">#FFFFFFFF</color>
+</resources>
