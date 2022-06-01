@@ -3,7 +3,9 @@ package com.viifo.labelview.demo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.widget.doOnTextChanged
 import com.viifo.labelview.LabelChangeStatus
 import com.viifo.labelview.LabelLayout
 
@@ -23,10 +25,24 @@ class FilterLabelActivity : AppCompatActivity() {
     private var selectAll = false
     private val mySelected: MutableList<Options> = mutableListOf()
 
+    private lateinit var mainLabel: LabelLayout
+    private lateinit var subLabel: LabelLayout
+    private lateinit var btnPrint: AppCompatButton
+    private lateinit var tvPrint: AppCompatTextView
+    private lateinit var tvSubSelectAll: AppCompatTextView
+    private lateinit var etSearch: AppCompatEditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter_label)
-        findViewById<LabelLayout>(R.id.main_label).apply {
+        mainLabel = findViewById(R.id.main_label)
+        subLabel = findViewById(R.id.sub_label)
+        btnPrint = findViewById(R.id.btn_print)
+        tvPrint = findViewById(R.id.tv_print)
+        tvSubSelectAll = findViewById(R.id.tv_sub_select_all)
+        etSearch = findViewById(R.id.et_search)
+
+        mainLabel.apply {
             val mainLabels = labels.map { it.name }
             setOnItemSelectedChangeListener<String> { selected, status ->
                 selected.getOrNull(0)?.let { mainLabel ->
@@ -38,29 +54,38 @@ class FilterLabelActivity : AppCompatActivity() {
             }
             setLabelList(data = mainLabels, selectedData = listOf(mainLabels[0]))
         }
-        findViewById<AppCompatButton>(R.id.btn_print).setOnClickListener {
-            findViewById<AppCompatTextView>(R.id.tv_print).text = "$mySelected"
+        btnPrint.setOnClickListener {
+            tvPrint.text = "$mySelected"
         }
-        findViewById<AppCompatTextView>(R.id.tv_sub_select_all).apply {
+        tvSubSelectAll.apply {
             setOnClickListener {
                 if (!selectAll) {
-                    this@FilterLabelActivity.findViewById<LabelLayout>(R.id.sub_label).selectedAll()
+                    subLabel.selectedAll()
                     text = "取消全选"
                 } else {
-                    this@FilterLabelActivity.findViewById<LabelLayout>(R.id.sub_label).clearAllSelected()
+                    subLabel.clearAllSelected()
                     text = "全选"
                 }
                 selectAll = !selectAll
+            }
+        }
+        etSearch.doOnTextChanged { text, _, _, _ ->
+            val mainLabelName = mainLabel.getSelectItems<String>().getOrNull(0) ?: ""
+            labels.filter { it.name == mainLabelName }.getOrNull(0)?.let {
+                updateSubLabels(
+                    mainLabelName,
+                    it.list.filter { it.contains(text.toString()) }
+                )
             }
         }
     }
 
     private fun updateSubLabels(mainLabel: String, subLabels: List<String>) {
         selectAll = false
-        this@FilterLabelActivity.findViewById<AppCompatTextView>(R.id.tv_sub_select_all).text = "全选"
-        findViewById<LabelLayout>(R.id.sub_label).apply {
+        tvSubSelectAll.text = "全选"
+        subLabel.apply {
             maxSelected = subLabels.size
-            setLabelList(data = subLabels, selectedData = mySelected.find { it.name == mainLabel }?.list)
+            setLabelList(data = subLabels, selectedData = mySelected.find { it.name == mainLabel }?.list, canOverflow = true)
             setOnItemSelectedChangeListener<String> { selected, status ->
                 // 不是初始化数据时的选中，保存选中的二级标签
                 if (status !is LabelChangeStatus.INIT) {
@@ -71,7 +96,7 @@ class FilterLabelActivity : AppCompatActivity() {
                         mySelected.add(Options(mainLabel, mutableListOf<String>().also { it.addAll(selected) }))
                     }
                 }
-                this@FilterLabelActivity.findViewById<AppCompatTextView>(R.id.tv_sub_select_all).text = if (selected.size == subLabels.size) {
+                tvSubSelectAll.text = if (selected.size == subLabels.size) {
                     selectAll = true
                     "取消全选"
                 } else {

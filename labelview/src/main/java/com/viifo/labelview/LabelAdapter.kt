@@ -112,15 +112,19 @@ class LabelAdapter<T: Any>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(items: List<T>?, defSelected: List<T>? = null) {
+    fun setData(items: List<T>?, defSelected: List<T>? = null, canOverflow: Boolean = false) {
         _data = items ?: emptyList()
         _selectedData.clear()
-        defSelected?.forEach {
-            if (data.contains(it)) {
-                _selectedData.add(it)
-                onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.INIT)
+        if (canOverflow) {
+            defSelected?.let { _selectedData.addAll(it) }
+        } else {
+            defSelected?.forEach {
+                if (data.contains(it)) {
+                    _selectedData.add(it)
+                }
             }
         }
+        onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.INIT)
         notifyDataSetChanged()
     }
 }

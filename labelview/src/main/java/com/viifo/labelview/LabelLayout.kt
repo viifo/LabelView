@@ -115,13 +115,17 @@ class LabelLayout @JvmOverloads constructor(
         )
     }
 
+    /**
+     * @param canOverflow 是否允许溢出选中集合，true - 允许选中集合中的 item 不在所有标签 item 中
+     */
     fun <T : Any> setLabelList(
         data: List<T>?,
         selectedData: List<T>? = null,
+        canOverflow: Boolean = false,
         converter: ((holder: LabelHolder, item: T, selected: Boolean) -> Unit)? = null,
     ) {
         if (converter != null || adapter == null) { bindView(converter) }
-        (adapter as LabelAdapter<T>?)?.setData(data, selectedData)
+        (adapter as LabelAdapter<T>?)?.setData(data, selectedData, canOverflow)
     }
 
     fun <T : Any> selectedItem(item: T) {
