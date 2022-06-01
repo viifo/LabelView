@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="10dp"
+    tools:context=".FilterLabelActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_main_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:text="一级分类(单选)"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.viifo.labelview.LabelLayout
+        android:id="@+id/main_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode="line"
+        app:scrollable="true"
+        app:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_sub_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:layout_marginTop="20dp"
+        android:text="二级分类(多选)"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_sub_select_all"
+        app:layout_constraintTop_toBottomOf="@+id/main_label" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_sub_select_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:text="全选"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tv_sub_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_sub_label"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_sub_label"/>
+
+    <com.viifo.labelview.LabelLayout
+        android:id="@+id/sub_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode="line"
+        app:scrollable="true"
+        app:multiChoice="true"
+        app:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sub_label" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="打印选中的标签"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sub_label"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_print"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_print"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

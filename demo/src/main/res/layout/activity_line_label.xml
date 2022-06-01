@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="单行水平标签展示 + 水平滚动"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mode="line"
+            app:scrollable="true"
+            app:multiChoice="true"
+            app:orientation="horizontal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="单行垂直标签展示 + 高度固定+ 垂直滚动"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_2"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            app:mode="line"
+            app:scrollable="true"
+            app:multiChoice="true"
+            app:orientation="vertical" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

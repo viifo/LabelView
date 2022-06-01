@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="每行固定列标签展示 + 默认选中"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:spanCount="4"
+            app:mode="grid"
+            app:multiChoice="true"
+            app:itemLayout="@layout/label_view_item_with_span_count" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="每行固定列标签展示 + 高度固定垂直滚动"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:spanCount="4"
+            app:mode="grid"
+            app:multiChoice="true"
+            app:scrollable="true"
+            app:itemLayout="@layout/label_view_item_with_span_count" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="流式布局标签展示 - 对齐方式： 默认 + 选中监听"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:multiChoice="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingVertical="10dp"
+            android:text="流式布局标签展示 - 对齐方式： 两端"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:justifyContent="space_between"
+            app:multiChoice="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingVertical="10dp"
+            android:text="流式布局标签展示 - 对齐方式： 居中"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:justifyContent="center"
+            app:multiChoice="true"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingVertical="10dp"
+            android:text="流式布局标签展示 - 自定义label布局 + 默认选中"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemLayout="@layout/label_view_item_with_custom"
+            app:multiChoice="true"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:layout_marginTop="50dp"
+            android:text="流式布局标签展示 - 对齐方式： 默认, 高度固定 + 垂直滚动"/>
+
+        <com.viifo.labelview.LabelLayout
+            android:id="@+id/label_layout_5"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:scrollable="true"
+            app:multiChoice="true"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

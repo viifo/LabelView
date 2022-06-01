@@ -15,6 +15,12 @@
         <entry key="..\:/Workspaces/demo/LabelView/labelview/src/main/res/layout/item_label_default.xml" value="0.33469202898550726" />
         <entry key="..\:/Workspaces/demo/LabelView/labelview/src/main/res/layout/item_label_default2.xml" value="0.33469202898550726" />
         <entry key="..\:/Workspaces/demo/LabelView/labelview/src/main/res/layout/label_view_item_default.xml" value="0.33469202898550726" />
+        <entry key="..\:/Workspaces/demo/label-view/demo/src/main/res/layout/activity_demo.xml" value="0.33469202898550726" />
+        <entry key="..\:/Workspaces/demo/label-view/demo/src/main/res/layout/activity_filter_label.xml" value="0.36614583333333334" />
+        <entry key="..\:/Workspaces/demo/label-view/demo/src/main/res/layout/activity_flex_label.xml" value="0.18" />
+        <entry key="..\:/Workspaces/demo/label-view/demo/src/main/res/layout/activity_grid_label.xml" value="0.36614583333333334" />
+        <entry key="..\:/Workspaces/demo/label-view/demo/src/main/res/layout/activity_line_label.xml" value="0.15443037974683543" />
+        <entry key="..\:/Workspaces/demo/label-view/demo/src/main/res/layout/label_view_item_with_span_count.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>

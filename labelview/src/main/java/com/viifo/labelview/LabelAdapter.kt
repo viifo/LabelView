@@ -10,7 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class LabelAdapter<T: Any>(
-    @LayoutRes private val layoutRes: Int
+    @LayoutRes private val layoutRes: Int,
+    private val multiChoice: Boolean,
+    private val maxSelected: Int,
 ) : RecyclerView.Adapter<LabelHolder>() {
 
     private var _data = listOf<T>()
@@ -18,6 +20,7 @@ class LabelAdapter<T: Any>(
     private var _selectedData = mutableListOf<T>()
     val selectedData: List<T> get() = _selectedData
     var onItemClickListener: ((T) -> Unit)? = null
+    var onItemSelectedChangeListener: ((selected: List<*>, status: LabelChangeStatus) -> Unit)? = null
     var onBindViewListener: ((holder: LabelHolder, item: T, selected: Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LabelHolder(
@@ -57,18 +60,46 @@ class LabelAdapter<T: Any>(
         return if (item != null && data.isNotEmpty()) data.indexOf(item) else -1
     }
 
-    fun addSelectedData(defSelected: T? = null, cover: Boolean = false) {
+    fun addSelectedData(defSelected: T? = null, ignoreContains: Boolean = false) {
         defSelected?.let {
-            if (cover || !selectedData.contains(it)) {
-                _selectedData.add(it)
-                notifyItemChanged(getItemPosition(it))
+            if (ignoreContains || !selectedData.contains(it)) {
+                if (!multiChoice || selectedData.size >= maxSelected) {
+                    if (selectedData.isNotEmpty()) {
+                        val oldItem = selectedData.getOrNull(0)
+                        _selectedData.removeAt(0)
+                        notifyItemChanged(getItemPosition(oldItem))
+                    }
+                    _selectedData.add(it)
+                    onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.ADD(listOf(it)))
+                    notifyItemChanged(getItemPosition(it))
+                } else {
+                    _selectedData.add(it)
+                    onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.ADD(listOf(it)))
+                    notifyItemChanged(getItemPosition(it))
+                }
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun selectedAll() {
+        _selectedData.clear()
+        _selectedData.addAll(data)
+        onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.ADD(selectedData))
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun clearAllSelected() {
+        _selectedData.clear()
+        onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.REMOVE(selectedData))
+        notifyDataSetChanged()
     }
 
     fun removeSelectedData(defSelected: T? = null) {
         defSelected?.let {
             _selectedData.remove(it)
+            onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.REMOVE(listOf(it)))
             notifyItemChanged(getItemPosition(it))
         }
     }
@@ -87,6 +118,7 @@ class LabelAdapter<T: Any>(
         defSelected?.forEach {
             if (data.contains(it)) {
                 _selectedData.add(it)
+                onItemSelectedChangeListener?.invoke(selectedData, LabelChangeStatus.INIT)
             }
         }
         notifyDataSetChanged()

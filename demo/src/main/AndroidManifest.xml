@@ -9,15 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LatticeEditText">
-        <activity android:name="com.viifo.labelview.demo.DemoJavaActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
         <activity
-            android:name="com.viifo.labelview.demo.DemoActivity"
+            android:name=".FilterLabelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LineLabelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GridLabelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FlexLabelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DemoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
