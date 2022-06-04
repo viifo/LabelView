@@ -28,7 +28,7 @@ class LabelLayout @JvmOverloads constructor(
     /** 是否支持多选 */
     var multiChoice: Boolean = false
     /** 最大可选数量(开启多选有效) */
-    var maxSelected: Int = 1
+    var maxSelected: Int = 0
     /** 是否支持滚动 */
     var scrollable: Boolean = false
 
@@ -62,7 +62,7 @@ class LabelLayout @JvmOverloads constructor(
             itemLayout = getResourceId(R.styleable.LabelLayout_itemLayout, R.layout.label_view_item_default)
             enableItemAnimator = getBoolean(R.styleable.LabelLayout_enableItemAnimator, false)
             multiChoice = getBoolean(R.styleable.LabelLayout_multiChoice, false)
-            maxSelected = getInt(R.styleable.LabelLayout_maxSelected, 1)
+            maxSelected = getInt(R.styleable.LabelLayout_maxSelected, Int.MAX_VALUE)
             scrollable = getBoolean(R.styleable.LabelLayout_scrollable, false)
 
             flexGrow = getBoolean(R.styleable.LabelLayout_flexGrow, false)

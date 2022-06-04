@@ -1,115 +1,147 @@
-# LatticeEditText
+# LabelView
 
-[![](https://jitpack.io/v/viifo/LatticeEditText.svg)](https://jitpack.io/#viifo/LatticeEditText)
+[![](https://jitpack.io/v/viifo/LabelView.svg)](https://jitpack.io/#viifo/LabelView)
 
-[中文](https://github.com/viifo/LatticeEditText/blob/master/README.md) | [English](https://github.com/viifo/LatticeEditText/blob/master/README_en.md)
+[中文](https://github.com/viifo/LabelView/blob/master/README.md) | [English](https://github.com/viifo/LabelView/blob/master/README_en.md)
 
-A lattice input box can be used for verification code or password input.
+A label selector view for android.
+
+
 
 
 
 ## Preview
-| box mode | line mode |
-| :--: | :----: |
+
+|        Flow layout        |        Grid layout        |
+| :-----------------------: | :-----------------------: |
 | ![](./screenshots/p1.gif) | ![](./screenshots/p2.gif) |
-| **box mode with borderless** | **character echo** |
+|     **Linear layout**     |     **Label filter**      |
 | ![](./screenshots/p3.gif) | ![](./screenshots/p4.gif) |
 
 
 
+
+
 ## Gradle
-1.  Add it in your root build.gradle at the end of repositories：
+
+1.  Add it in your root `build.gradle` at the end of repositories：
+
 ```groovy
 allprojects {
     repositories {
-        ...
         maven { url 'https://jitpack.io' }
     }
 }
 ```
+
 2.  Add the dependency:
+
 ```groovy
 dependencies {
-    implementation 'com.github.viifo:LatticeEditText:1.0.0'
+    implementation 'com.github.viifo:LabelView:1.0.0'
 }
 ```
+
+
 
 
 
 ## Usage
-1. Add in XML:
-```xml
-<com.viifo.latticeedittext.LatticeEditText
-        android:id="@+id/et_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="0dp"
-        android:layout_margin="5dp"
-        android:textSize="18sp"
-        android:textColor="#ff0000"
-        app:border_radius="10dp"
-        app:cursor_height="15dp"
-        app:cursor_color="#ff0000"
-        app:size="4"
-        app:input_mode="box"
-        android:background="#ececec"
-        app:border_color="#ff00ff"/>
-```
-2. Text change listener:
-```java
-// kotlin
-latticeEditText.textChangeListener = { 
-    println("--> OnTextChangeListener： text = $it")
-}
-// or
-latticeEditText.setOnTextChangeListener {
-    println("--> OnTextChangeListener： text = $it")
-}
 
-// java
-latticeEditText.setOnTextChangeListener(new OnTextChangeListener() {
-    @Override
-    public void onTextChange(@Nullable String text) {
-        System.out.println("--> OnTextChangeListener： text = " + text);
-    }
-});
+1.  Add in XML:
+
+```xml
+<com.viifo.labelview.LabelLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content" />
 ```
+
+2.  Label change listener:
+
+```java
+// set data
+val labels = listOf(...)
+labelLayout.setLabelList(labels)
+// labels are selected by default
+// labelLayout.setLabelList(labels, defultSelectedLabels)
+
+// set label change listener
+labelLayout.setOnItemSelectedChangeListener<String> { selected, status ->
+    // selected is currently using all selected labels
+    if (status is LabelChangeStatus.ADD) {
+        // todo label checked
+        // status.item is the list of checked labels
+    } else if (status is LabelChangeStatus.REMOVE) {
+        // todo label unchecked
+        // status.item is the list of unchecked labels
+    } else if (status is LabelChangeStatus.INIT) {
+        // todo 标签初始化(默认)选中事件
+    }
+}
+```
+
+3.  Custom label layout:
+
+```xml
+<com.viifo.labelview.LabelLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	app:itemLayout="@layout/label_view_item_with_custom" />
+```
+
+```kotlin
+labelLayout.setLabelList(
+	data = labels,
+	selectedData = null, // optional
+	converter = { holder, item, selected ->
+    	// todo Custom label binding view
+        // selected - Whether the current tab should be selected       
+	}
+)
+```
+
+
+
 
 
 ## Attributes
 
-|             name           |  format   |  description  |
-| :------------------------: | :-------: | :-----------: |
-| android:background         | color     | background color |
-| android:textSize           | dimension | text size     |
-| android:textColor          | color     | text color    |
-| android:text               | string    | text          |
-| android:layout_margin      | dimension | margin        |
-| android:layout_marginLeft  | dimension | margin left   |
-| android:layout_marginTop   | dimension | margin top    |
-| android:layout_marginRight | dimension | margin right  |
-| android:layout_marginBottom| dimension | margin bottom |
-| android:padding            | dimension | padding       |
-| android:paddingLeft        | dimension | padding left  |
-| android:paddingTop         | dimension | padding top   |
-| input_mode                 | enum      | reference input box style sheet |
-| size                       | integer   | number of input boxes |
-| input_width                | dimension | single input box width |
-| input_height               | dimension | single input box height |
-| border_radius              | dimension | border radius |
-| border_width               | dimension | border width  |
-| border_color               | color     | border color  |
-| cursor_width               | dimension | cursor width      |
-| cursor_height              | dimension | cursor height      |
-| cursor_color               | color     | cursor color      |
-| replace_text               | string    | used to replace input characters |
+|      name      |  format   |                         description                          |
+| :------------: | :-------: | :----------------------------------------------------------: |
+|      mode      |   enum    |                      Label layout mode                       |
+|  orientation   |   enum    |        Label layout direction（horizontal, vertical）        |
+|   itemLayout   | reference |                 Custom Label Layout Resource                 |
+|  multiChoice   |  boolean  |     Whether to support multiple selection, default false     |
+|  maxSelected   |  integer  | The maximum number of options available, valid for multiple selection |
+|   scrollable   |  boolean  | Whether to support scrolling, the default is false <br/> The scrolling direction is fixed vertically under the fluid layout<br/> The scrolling direction is the same as the layout direction under the linear layout |
+|    flexGrow    |  boolean  | Whether to fill the remaining space of the row, the flow layout is valid |
+| justifyContent |   enum    |             Label alignment, fluid layout works              |
+|   spanCount    |  integer  | The number of labels displayed per row, the grid layout is valid |
 
 
-## Input mode style
-|   name   |  description   |
-| :------: | :------------: |
-| box      | box mode       |
-| line     | underline mode |
+
+## Label mode style
+
+| name |      description      |
+| :--: | :-------------------: |
+| flex | Flex layout (default) |
+| grid |      Grid layout      |
+| line |     Linear layout     |
+
+
+
+## Label justifyContent style
+
+|     name      |                         description                          |
+| :-----------: | :----------------------------------------------------------: |
+|  flex_start   |      Labels are packed toward the start line. (default)      |
+|   flex_end    |            Labels are packed toward the end line.            |
+|    center     | Labels are centered along the flex line where the flex items belong. |
+| space_between | Labels are evenly distributed along the flex line, first flex item is on the start line, the last flex item is on the end line. |
+| space_around  | Labels are evenly distributed along the flex line with the same amount of spaces between the flex lines. |
+| space_evenly  | Labels are evenly distributed along the flex line. The difference between SPACE_AROUND is that all the spaces between items should be the same as the space before the first item and after the last item. |
+
+
 
 
 
@@ -117,7 +149,7 @@ latticeEditText.setOnTextChangeListener(new OnTextChangeListener() {
 ## License
 
 ```
-Copyright 2021 viifo
+Copyright 2022 viifo
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

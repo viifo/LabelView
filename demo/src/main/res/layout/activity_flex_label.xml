@@ -29,14 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:paddingVertical="10dp"
-            android:text="流式布局标签展示 - 对齐方式： 两端"/>
+            android:text="流式布局标签展示 - 对齐方式： 两端（单选）"/>
 
         <com.viifo.labelview.LabelLayout
             android:id="@+id/label_layout_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:justifyContent="space_between"
-            app:multiChoice="true" />
+            app:justifyContent="space_between"  />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"

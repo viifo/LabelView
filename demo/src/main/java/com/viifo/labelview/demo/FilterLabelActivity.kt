@@ -66,7 +66,6 @@ class FilterLabelActivity : AppCompatActivity() {
                     subLabel.clearAllSelected()
                     text = "全选"
                 }
-                selectAll = !selectAll
             }
         }
         etSearch.doOnTextChanged { text, _, _, _ ->
